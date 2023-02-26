@@ -1,0 +1,106 @@
+{
+  "openapi": "3.0.0",
+  "servers": [
+    {
+      "url": "/api"
+    }
+  ],
+  "info": {
+    "title": "Node Js API",
+    "description": "",
+    "version": "1.0"
+  },
+
+  "tags": [
+    {
+      "name": "Auth",
+      "description": "Authentication related routes"
+    }
+  ],
+  "paths": {
+    "/auth/login": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "description": "Verify Api and Login User",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/auth_login_body"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json; charset=utf-8": {
+                "schema": {
+                  "type": "object"
+                },
+                "example": {
+                  "data": {
+                    "key": "d8517502c689ff1f65b9abc0ab1c9873585819bf"
+                  },
+                  "code": 200,
+                  "message": "OK"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json; charset=utf-8": {
+                "schema": {
+                  "type": "object"
+                },
+                "example": {
+                  "error": "404",
+                  "message": "AppUserID Not Exist!"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "JWT": {
+        "type": "http",
+        "in": "header",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    },
+    "schemas": {
+      "auth_login_body": {
+        "type": "object",
+        "properties": {
+          "username": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          }
+        }
+      },
+      "objCommon": {
+        "type": "object",
+        "properties": {
+          "insertUserId": {
+            "type": "number"
+          },
+          "insertIpAddress": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}
